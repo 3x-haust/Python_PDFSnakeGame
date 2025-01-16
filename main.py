@@ -263,8 +263,10 @@ function set_pixel(x, y, state) {
     if (x < 0 || y < 0 || x >= ###GRID_WIDTH### || y >= ###GRID_HEIGHT###) {
         return;
     }
-    pixel_fields[x][###GRID_HEIGHT### - 1 - y].hidden = !state;
+
+    pixel_fields[x][###GRID_HEIGHT### - 1 - y].hidden = state;
 }
+
 
 function draw() {
     // Clear field
@@ -329,7 +331,7 @@ PLAYING_FIELD_OBJ = """
   /Ff 1
   /MK <<
     /BG [
-      0.8
+      ###COLOR###
     ]
     /BC [
       0 0 0
@@ -476,8 +478,8 @@ endobj
 PX_SIZE = 20
 GRID_WIDTH = 15
 GRID_HEIGHT = 15
-GRID_OFF_X = 200
-GRID_OFF_Y = 350
+GRID_OFF_X = 150
+GRID_OFF_Y = 400
 
 fields_text = ""
 field_indexes = []
@@ -491,6 +493,8 @@ def add_field(field):
 
 # Add playing field
 playing_field = PLAYING_FIELD_OBJ
+c = [0.8, 0.8, 0.8]
+playing_field = playing_field.replace("###COLOR###", f"{c[0]} {c[1]} {c[2]}")
 playing_field = playing_field.replace("###IDX###", f"{obj_idx_ctr} 0")
 playing_field = playing_field.replace("###RECT###", f"{GRID_OFF_X} {GRID_OFF_Y} {GRID_OFF_X+GRID_WIDTH*PX_SIZE} {GRID_OFF_Y+GRID_HEIGHT*PX_SIZE}")
 add_field(playing_field)
